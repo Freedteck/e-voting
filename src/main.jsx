@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import { WagmiProvider } from "wagmi";
 
 import App from "./App";
-import { config } from "./wagmi.ts";
+// import { config } from "./wagmi.ts";
 
 import "./index.css";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -14,14 +14,21 @@ import {
   lightTheme,
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
-import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  base,
+  sepolia,
+} from "wagmi/chains";
 
-// const config = getDefaultConfig({
-//   appName: "My RainbowKit App",
-//   projectId: "YOUR_PROJECT_ID",
-//   chains: [mainnet, polygon, optimism, arbitrum, base],
-//   ssr: true, // If your dApp uses server side rendering (SSR)
-// });
+const config = getDefaultConfig({
+  appName: "My RainbowKit App",
+  projectId: "YOUR_PROJECT_ID",
+  chains: [mainnet, polygon, optimism, arbitrum, base, sepolia],
+  ssr: true, // If your dApp uses server side rendering (SSR)
+});
 
 globalThis.Buffer = Buffer;
 

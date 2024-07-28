@@ -1,0 +1,34 @@
+.modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(18, 183, 106, 0.1);
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.modal-container.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background-color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  gap: 32px;
+  transform: translateY(-50px);
+  transition: transform 0.5s ease-in-out;
+}
+
+.modal-container.show .modal {
+  transform: translateY(0);
+}
