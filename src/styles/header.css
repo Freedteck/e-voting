@@ -1,0 +1,13 @@
+header {
+  box-shadow: var(--box-shadow-color);
+}
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 20px;
+  flex-wrap: wrap;
+}
+header nav button {
+  flex-shrink: 0;
+}

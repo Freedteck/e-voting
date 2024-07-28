@@ -1,0 +1,33 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #4caf50, #81c784);
+  color: white;
+  text-align: center;
+}
+
+.banner h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.banner p {
+  font-size: 1.5rem;
+}
+.banner button {
+  background: white;
+}
+.banner button a {
+  color: #4caf50;
+}
+.banner button:hover {
+  background: transparent;
+  border-color: #ffffff;
+}
+.banner button:hover a {
+  color: #ffffff;
+}

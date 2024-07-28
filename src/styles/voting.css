@@ -1,0 +1,32 @@
+.voting {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 60px;
+}
+.voting .register {
+  align-self: flex-end;
+}
+.voting h2 {
+  text-align: center;
+}
+.voting form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 1.05rem;
+}
+form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+form select {
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--primary-color);
+}
+option {
+  font-size: 18px;
+  background-color: #ffffff;
+}
