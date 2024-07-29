@@ -24,9 +24,29 @@ form label {
 form select {
   padding: 20px;
   border-radius: 6px;
-  border: 1px solid var(--primary-color);
+  /* border: 1px solid var(--primary-color); */
 }
 option {
   font-size: 18px;
   background-color: #ffffff;
+}
+.voting .ctas {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+.ctas a {
+  color: var(--primary-color);
+  border-radius: 6px;
+  padding: 10px 30px;
+  border: 1px solid var(--primary-color);
+  font-weight: 500;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background-color, color, 0.3s;
+}
+.ctas a:hover {
+  background-color: var(--primary-color);
+  color: #ffffff;
 }

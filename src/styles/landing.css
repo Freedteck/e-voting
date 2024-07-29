@@ -5,11 +5,12 @@
   gap: 20px;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(to right, #4caf50, #81c784);
   color: white;
   text-align: center;
 }
-
+.landing {
+  background: linear-gradient(to right, #4caf50, #81c784);
+}
 .banner h1 {
   font-size: 3rem;
   margin: 0;

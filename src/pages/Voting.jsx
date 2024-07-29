@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "../components/Modal";
 import "../styles/voting.css";
+import { Link } from "react-router-dom";
 
 const Voting = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -63,7 +64,10 @@ const Voting = () => {
             <option value="Atiku">Sen. C</option>
           </select>
         </label>
-        <button>Vote</button>
+        <div className="ctas">
+          <button>Vote</button>
+          <Link to={"/result"}>View result</Link>
+        </div>
       </form>
 
       {openModal && <Modal closeModal={closeModal} isOpen={openModal} />}

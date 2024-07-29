@@ -3,8 +3,8 @@ import "../styles/landing.css";
 
 const Landing = () => {
   return (
-    <div className="landing container">
-      <div className="banner">
+    <div className="landing">
+      <div className="banner container">
         <h1>Welcome to Unilorin Elections 2024!</h1>
         <p>Secure, Transparent, and Easy Voting at Your Fingertips.</p>
         <button>
