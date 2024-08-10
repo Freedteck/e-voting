@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import "../styles/result.css";
 import { ReadVotes } from "../utils/wagmiClient";
+import Spinner from "../components/Spinner";
 
 const Result = () => {
   const { data } = ReadVotes();
-
+  const [loading, setLoading] = useState(true);
   const [presidents, setPresidents] = useState([]);
   const [vice, setVice] = useState([]);
   const [Pro, setPro] = useState([]);
   const [secretary, setSecretary] = useState([]);
+  const [totalPresidentVotes, setTotalPresidentVotes] = useState(0);
+  const [totalViceVotes, setTotalViceVotes] = useState(0);
+  const [totalProVotes, setTotalProVotes] = useState(0);
+  const [totalSecretaryVotes, setTotalSecretaryVotes] = useState(0);
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       const filteredPresident = data.filter(
         (president) => president.category === "SU President"
       );
@@ -25,16 +29,55 @@ const Result = () => {
 
       const filteredPro = data.filter((pro) => pro.category === "SU PRO");
       setPro([...filteredPro]);
+
       const filteredSecretary = data.filter(
         (secretary) => secretary.category === "SU Secretary"
       );
       setSecretary([...filteredSecretary]);
+
+      setLoading(true); // Stop the loading once data is processed
     }
   }, [data]);
 
+  useEffect(() => {
+    if (presidents.length > 0) {
+      const totalVotes = presidents.reduce((acc, cur) => {
+        return acc + parseInt(cur.votes);
+      }, 0);
+      setTotalPresidentVotes(totalVotes);
+    }
+    if (vice.length > 0) {
+      const totalVotes = vice.reduce((acc, cur) => {
+        return acc + parseInt(cur.votes);
+      }, 0);
+      setTotalViceVotes(totalVotes);
+    }
+    if (Pro.length > 0) {
+      const totalVotes = Pro.reduce((acc, cur) => {
+        return acc + parseInt(cur.votes);
+      }, 0);
+      setTotalProVotes(totalVotes);
+    }
+    if (secretary.length > 0) {
+      const totalVotes = secretary.reduce((acc, cur) => {
+        return acc + parseInt(cur.votes);
+      }, 0);
+      setTotalSecretaryVotes(totalVotes);
+    }
+  }, [presidents, vice, Pro, secretary]);
+
   return (
     <div className="container result">
-      <h2>Results</h2>
+      <div className="top">
+        <h2>Results</h2>
+        <div className="loading-container">
+          <div className="progress-bar">
+            <div className="progress-bar-fill">
+              <span className="progress-text">in progress...</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <table>
         <caption>SU president</caption>
         <thead>
@@ -52,9 +95,14 @@ const Result = () => {
               <td>{parseInt(president.votes)}</td>
             </tr>
           ))}
+          <tr style={{ fontWeight: "bold" }}>
+            <td colSpan={2} style={{ textAlign: "center" }}>
+              Total votes
+            </td>
+            <td>{totalPresidentVotes}</td>
+          </tr>
         </tbody>
       </table>
-
       <table>
         <caption>SU vice president</caption>
         <thead>
@@ -72,6 +120,12 @@ const Result = () => {
               <td>{parseInt(vc.votes)}</td>
             </tr>
           ))}
+          <tr style={{ fontWeight: "bold" }}>
+            <td colSpan={2} style={{ textAlign: "center" }}>
+              Total votes
+            </td>
+            <td>{totalViceVotes}</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -91,6 +145,12 @@ const Result = () => {
               <td>{parseInt(pro.votes)}</td>
             </tr>
           ))}
+          <tr style={{ fontWeight: "bold" }}>
+            <td colSpan={2} style={{ textAlign: "center" }}>
+              Total votes
+            </td>
+            <td>{totalProVotes}</td>
+          </tr>
         </tbody>
       </table>
       <table>
@@ -110,6 +170,12 @@ const Result = () => {
               <td>{parseInt(sec.votes)}</td>
             </tr>
           ))}
+          <tr style={{ fontWeight: "bold" }}>
+            <td colSpan={2} style={{ textAlign: "center" }}>
+              Total votes
+            </td>
+            <td>{totalSecretaryVotes}</td>
+          </tr>
         </tbody>
       </table>
     </div>
