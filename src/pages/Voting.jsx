@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import "../styles/voting.css";
 import { Link } from "react-router-dom";
-import { ReadCandidate } from "../utils/wagmiClient";
+import { ReadCandidate, ReadVotes } from "../utils/wagmiClient";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { abi, contractAddress } from "../utils/clients";
 
@@ -17,8 +17,10 @@ const Voting = () => {
   const [vice, setVice] = useState([]);
   const [Pro, setPro] = useState([]);
   const [secretary, setSecretary] = useState([]);
+  const [totalVoted, setTotalVoted] = useState(0);
 
   const { data } = ReadCandidate();
+  const { data: votes } = ReadVotes();
   const {
     data: voteHash,
     error: voteError,
@@ -124,6 +126,64 @@ const Voting = () => {
       functionName: "registerVoter",
     });
   };
+  useEffect(() => {
+    if (votes) {
+      const categories = [
+        "SU President",
+        "SU Vice President",
+        "SU PRO",
+        "SU Secretary",
+      ];
+
+      const totalVotes = categories.reduce((total, category) => {
+        const filteredVotes = votes.filter(
+          (vote) => vote.category === category
+        );
+        return (
+          total +
+          filteredVotes.reduce((acc, cur) => {
+            return acc + parseInt(cur.votes, 10);
+          }, 0)
+        );
+      }, 0);
+
+      setTotalVoted(totalVotes);
+    }
+  }, [votes]);
+
+  // useEffect(() => {
+  //   if (votes) {
+  //     const filteredPresident = votes.filter(
+  //       (president) => president.category === "SU President"
+  //     );
+  //     setTotalVoted(
+  //       (prev) =>
+  //         prev +
+  //         filteredPresident.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
+  //     );
+
+  //     const filteredVice = votes.filter(
+  //       (vice) => vice.category === "SU Vice President"
+  //     );
+  //     setTotalVoted(
+  //       (prev) =>
+  //         prev + filteredVice.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
+  //     );
+  //     const filteredPro = votes.filter((pro) => pro.category === "SU PRO");
+  //     setTotalVoted(
+  //       (prev) =>
+  //         prev + filteredPro.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
+  //     );
+  //     const filteredSecretary = votes.filter(
+  //       (secretary) => secretary.category === "SU Secretary"
+  //     );
+  //     setTotalVoted(
+  //       (prev) =>
+  //         prev +
+  //         filteredSecretary.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
+  //     );
+  //   }
+  // }, [votes]);
 
   return (
     <div className="voting container">
@@ -136,6 +196,20 @@ const Voting = () => {
       </button>
 
       <h2>Unilorin Election</h2>
+      <div className="top-vote">
+        <div className="loading-container">
+          <p>Voting in progress</p>
+          <div className="loading-dots">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </div>
+        </div>
+        <div className="left">
+          <p>Registerd voters: 0</p>
+          No. of votes cast: {totalVoted}
+        </div>
+      </div>
       <form onSubmit={handleSubmit}>
         <label>
           SU president

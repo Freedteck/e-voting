@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import "../styles/result.css";
 import { ReadVotes } from "../utils/wagmiClient";
-import Spinner from "../components/Spinner";
 
 const Result = () => {
   const { data } = ReadVotes();
-  const [loading, setLoading] = useState(true);
   const [presidents, setPresidents] = useState([]);
   const [vice, setVice] = useState([]);
   const [Pro, setPro] = useState([]);
@@ -34,8 +32,6 @@ const Result = () => {
         (secretary) => secretary.category === "SU Secretary"
       );
       setSecretary([...filteredSecretary]);
-
-      setLoading(true); // Stop the loading once data is processed
     }
   }, [data]);
 
@@ -68,16 +64,7 @@ const Result = () => {
 
   return (
     <div className="container result">
-      <div className="top">
-        <h2>Results</h2>
-        <div className="loading-container">
-          <div className="progress-bar">
-            <div className="progress-bar-fill">
-              <span className="progress-text">in progress...</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2>Results</h2>
       <table>
         <caption>SU president</caption>
         <thead>
