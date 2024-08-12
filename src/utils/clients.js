@@ -1,26 +1,5 @@
-const contractAddress = "0xEAADa013395AE077cf53cE2129d4527a640cd30E";
+const contractAddress = "0x51D24B78d6f48cD62286047404901fA09Aa3E6C2";
 const abi = [
-  {
-    inputs: [],
-    name: "endVoting",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "registerVoter",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "startVoting",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
   {
     inputs: [
       {
@@ -41,19 +20,6 @@ const abi = [
     ],
     stateMutability: "nonpayable",
     type: "constructor",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string[]",
-        name: "_candidates",
-        type: "string[]",
-      },
-    ],
-    name: "vote",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
   },
   {
     anonymous: false,
@@ -132,6 +98,13 @@ const abi = [
   },
   {
     inputs: [],
+    name: "endVoting",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "getAllCandidates",
     outputs: [
       {
@@ -188,30 +161,6 @@ const abi = [
   {
     inputs: [
       {
-        internalType: "string",
-        name: "category",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "candidate",
-        type: "string",
-      },
-    ],
-    name: "getVoteCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "address",
         name: "",
         type: "address",
@@ -223,6 +172,59 @@ const abi = [
         internalType: "bool",
         name: "",
         type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "registerVoter",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "registeredVoter",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "startVoting",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string[]",
+        name: "_candidates",
+        type: "string[]",
+      },
+    ],
+    name: "vote",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "votedUser",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",

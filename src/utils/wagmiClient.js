@@ -21,6 +21,16 @@ function ReadVotes() {
   return { data };
 }
 
+function RegisteredVoters() {
+  const { data } = useReadContract({
+    abi,
+    address: contractAddress,
+    functionName: "registeredVoter",
+  });
+
+  return { data };
+}
+
 function Register() {
   useWriteContract({
     abi,
@@ -29,4 +39,4 @@ function Register() {
   });
 }
 
-export { ReadCandidate, ReadVotes, Register };
+export { ReadCandidate, ReadVotes, Register, RegisteredVoters };

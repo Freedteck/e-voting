@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import "../styles/voting.css";
 import { Link } from "react-router-dom";
-import { ReadCandidate, ReadVotes } from "../utils/wagmiClient";
+import {
+  ReadCandidate,
+  ReadVotes,
+  RegisteredVoters,
+} from "../utils/wagmiClient";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { abi, contractAddress } from "../utils/clients";
 
@@ -18,6 +22,8 @@ const Voting = () => {
   const [Pro, setPro] = useState([]);
   const [secretary, setSecretary] = useState([]);
   const [totalVoted, setTotalVoted] = useState(0);
+  const { data: registeredVoters } = RegisteredVoters();
+  const [totalRegisteredVoters, setTotalRegisteredVoters] = useState(0);
 
   const { data } = ReadCandidate();
   const { data: votes } = ReadVotes();
@@ -128,12 +134,7 @@ const Voting = () => {
   };
   useEffect(() => {
     if (votes) {
-      const categories = [
-        "SU President",
-        "SU Vice President",
-        "SU PRO",
-        "SU Secretary",
-      ];
+      const categories = ["SU President"];
 
       const totalVotes = categories.reduce((total, category) => {
         const filteredVotes = votes.filter(
@@ -151,6 +152,14 @@ const Voting = () => {
     }
   }, [votes]);
 
+  useEffect(() => {
+    if (registeredVoters) {
+      const total = parseInt(registeredVoters);
+
+      setTotalRegisteredVoters(total);
+    }
+  }, [registeredVoters]);
+
   // useEffect(() => {
   //   if (votes) {
   //     const filteredPresident = votes.filter(
@@ -160,27 +169,6 @@ const Voting = () => {
   //       (prev) =>
   //         prev +
   //         filteredPresident.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
-  //     );
-
-  //     const filteredVice = votes.filter(
-  //       (vice) => vice.category === "SU Vice President"
-  //     );
-  //     setTotalVoted(
-  //       (prev) =>
-  //         prev + filteredVice.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
-  //     );
-  //     const filteredPro = votes.filter((pro) => pro.category === "SU PRO");
-  //     setTotalVoted(
-  //       (prev) =>
-  //         prev + filteredPro.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
-  //     );
-  //     const filteredSecretary = votes.filter(
-  //       (secretary) => secretary.category === "SU Secretary"
-  //     );
-  //     setTotalVoted(
-  //       (prev) =>
-  //         prev +
-  //         filteredSecretary.reduce((acc, cur) => acc + parseInt(cur.votes), 0)
   //     );
   //   }
   // }, [votes]);
@@ -206,7 +194,7 @@ const Voting = () => {
           </div>
         </div>
         <div className="left">
-          <p>Registerd voters: 0</p>
+          <p>Registerd voters: {totalRegisteredVoters}</p>
           No. of votes cast: {totalVoted}
         </div>
       </div>
